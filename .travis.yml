@@ -1,39 +1,28 @@
 language: php
 
+services:
+    - postgresql
+    - mysql
+
 php:
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
-# faster builds on new travis setup not using sudo
-sudo: false
-
-# cache vendor dirs
-cache:
-  directories:
-    - $HOME/.composer/cache
-    - $HOME/.bin
+env:
+    - DB_TYPE=mysql DB_HOST=127.0.0.1 DB_NAME=test DB_PORT=3306 DB_USERNAME=root DB_PASSWORD=
+    - DB_TYPE=pgsql DB_HOST=localhost DB_NAME=test DB_PORT=5432 DB_USERNAME=postgres DB_PASSWORD=root
 
 install:
-  - travis_retry composer self-update && composer --version
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - travis_retry composer install --prefer-dist --no-interaction
-  - composer show -i
-
-before_script:
-  - |
-    if [ $TRAVIS_PHP_VERSION = '5.6' ]; then
-      PHPUNIT_FLAGS="--coverage-clover=coverage.clover"
-    fi
-  - composer require --prefer-dist --no-interaction 'phpunit/phpunit:~5.7.27|^6.2'
+    - travis_retry composer self-update
+    - travis_retry composer install --prefer-dist --no-interaction
+    - sh -c "if [ '$DB_TYPE' = 'pgsql' ]; then psql -c 'CREATE DATABASE test;' -U postgres; fi"
+    - sh -c "if [ '$DB_TYPE' = 'mysql' ]; then mysql -e 'CREATE DATABASE IF NOT EXISTS test;'; fi"
 
 script:
-  - phpunit $PHPUNIT_FLAGS
+    - travis_retry composer lint
+    - travis_retry composer cover
 
 after_script:
-  - |
-    if [ $TRAVIS_PHP_VERSION = '5.6' ]; then
-      travis_retry wget https://scrutinizer-ci.com/ocular.phar
-      php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-    fi
+    - bash <(curl -s https://codecov.io/bash)
+

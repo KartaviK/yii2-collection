@@ -5,14 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-// ensure we get report on all possible php errors
-error_reporting(-1);
+if (file_exists(dirname(__DIR__) . DIRECTORY_SEPARATOR . '.env')) {
+    $dotEnv = new \Dotenv\Dotenv(dirname(__DIR__));
+    $dotEnv->load();
+}
 
-define('YII_ENABLE_ERROR_HANDLER', false);
-define('YII_DEBUG', true);
+\Yii::setAlias('@Kartavik/Yii/', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src');
+\Yii::setAlias('@Kartavik/Yii/Tests', __DIR__);
 
-require_once(__DIR__ . '/../vendor/autoload.php');
-require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
-
-Yii::setAlias('@yiiunit/collection', __DIR__);
-Yii::setAlias('@yii/collection', dirname(__DIR__) . '/src');
+Yii::setAlias('@runtime', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'runtime');
+\Yii::setAlias('@configFile', __DIR__ . DIRECTORY_SEPARATOR . 'config.php');

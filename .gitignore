@@ -34,3 +34,5 @@ phpunit.phar
 # docker
 /tests/docker
 /tests/dockerids
+
+/.env

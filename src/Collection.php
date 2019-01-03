@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Kartavik\Yii\Collection;
+namespace Kartavik\Yii;
 
 use yii\base\Component;
 use yii\base\InvalidArgumentException;
@@ -342,7 +342,11 @@ class Collection extends Component implements \ArrayAccess, \Countable, \Iterato
      */
     public function merge(iterable $collection): Collection
     {
-        return new static(\array_merge($this->items, $collection));
+        if ($collection instanceof Collection) {
+            return new static(\array_merge($this->items, $collection->getItems()));
+        }
+
+        return new static(\array_merge($this->items, (array)$collection));
     }
 
     /**
@@ -556,6 +560,7 @@ class Collection extends Component implements \ArrayAccess, \Countable, \Iterato
      * </p>
      * <p>
      * The return value will be casted to boolean if non-boolean was returned.
+     * </p>
      */
     public function offsetExists($offset): bool
     {
@@ -592,7 +597,7 @@ class Collection extends Component implements \ArrayAccess, \Countable, \Iterato
      */
     public function offsetSet($offset, $value)
     {
-        $this->items[$offset] = $value;
+        $this->items[$offset ?: $this->count()] = $value;
     }
 
     /**
