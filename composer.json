@@ -6,6 +6,7 @@
         "collection",
         "active-record"
     ],
+    "minimum-stability": "stable",
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
@@ -53,6 +54,7 @@
         }
     ],
     "config": {
+        "process-timeout": 1800,
         "sort-packages": true,
         "platform": {
             "php": "7.1"
