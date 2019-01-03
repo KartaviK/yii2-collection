@@ -27,8 +27,8 @@
     ],
     "require": {
         "php": "^7.1.0",
-        "yiisoft/yii2": "~2.0.14",
-        "ext-json": "*"
+        "ext-json": "*",
+        "yiisoft/yii2": "^2.0.14"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5",

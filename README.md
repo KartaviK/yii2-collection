@@ -26,17 +26,8 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist yiisoft/yii2-collection
+composer require --prefer-dist kartavik/yii2-collection
 ```
-
-or add
-
-```json
-"yiisoft/yii2-collection": "~1.0.0"
-```
-
-to the require section of your composer.json.
-
 
 Configuration
 -------------
