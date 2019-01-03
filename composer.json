@@ -1,7 +1,11 @@
 {
-    "name": "yiisoft/yii2-collection",
+    "name": "kartavik/yii2-collection",
     "description": "Active Record Collection implementation for the Yii framework",
-    "keywords": ["yii2", "collection", "active-record"],
+    "keywords": [
+        "yii2",
+        "collection",
+        "active-record"
+    ],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
@@ -15,11 +19,16 @@
         {
             "name": "Carsten Brandt",
             "email": "mail@cebe.cc"
+        },
+        {
+            "name": "Roman Varkuta",
+            "email": "roman.varkuta@gmail.com"
         }
     ],
     "require": {
-        "php": ">=5.6.0",
-        "yiisoft/yii2": "~2.0.14"
+        "php": "^7.1.0",
+        "yiisoft/yii2": "~2.0.14",
+        "ext-json": "*"
     },
     "repositories": [
         {
@@ -28,14 +37,28 @@
         }
     ],
     "autoload": {
-        "psr-4": {"yii\\collection\\": "src"}
+        "psr-4": {
+            "Kartavik\\Yii\\Collection\\": "src"
+        }
     },
     "autoload-dev": {
-        "psr-4": {"yiiunit\\collection\\": "tests"}
+        "psr-4": {
+            "Kartavik\\Yii\\Collection\\Tests\\": "tests"
+        }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
+    },
+    "scripts": {
+        "lint": "phpcs --standard=PSR2 ./src ./tests",
+        "phpcbf": "phpcbf --standard=PSR2 ./src ./tests",
+        "cover": "phpunit --coverage-clover=coverage.xml",
+        "test": "phpunit"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.4",
+        "phpunit/phpunit": "^7.5"
     }
 }
