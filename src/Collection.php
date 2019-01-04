@@ -31,8 +31,9 @@ use yii\helpers\ArrayHelper;
  * })->sum(); // 5
  * ```
  *
- * The collection implements [[ArrayAccess]], [[Iterator]], and [[Countable]], so you can access it in
- * the same way you use a PHP array. A collection however is read-only, you can not manipulate single items.
+ * The collection implements [[ArrayAccess]], [[IteratorAggregate]], [[JsonSerializable]] and [[Countable]], so you can
+ *     access it in the same way you use a PHP array. A collection however is read-only, you can not manipulate single
+ *     items.
  *
  * ```php
  * $collection = new Collection([1, 2, 3]);
